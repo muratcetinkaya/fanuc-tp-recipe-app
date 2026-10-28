@@ -91,11 +91,11 @@ Unter **Setup → Host Comm** (HTTP-Authentifizierung) den Zugriff so einstellen
 
 ## Haftungsausschluss
 
-Dieses Repository ist **Beispiel- / Lehrcode**, kein zertifiziertes Produkt.
+Dieses Repository ist **Beispiel- / Lehrcode** — kein fertiges Produkt und keine offizielle FANUC-Lösung.
 
-**Der Autor übernimmt keine Verantwortung oder Haftung** für Schäden, Ausfallzeiten, Verletzungen, Datenverlust oder andere Folgen durch Download, Kopie, Änderung oder Ausführung dieses Codes am Roboter, an der Steuerung oder in der Produktion — einschließlich fehlender Safety-Integration, Fehlbedienung oder Abweichungen bei Steuerungsversion/Optionen.
+Vor dem Einsatz am live Roboter oder in der Produktion bitte **an der eigenen Anlage testen**, die Sicherheitsvorgaben vor Ort beachten und die FANUC-Dokumentation zur Steuerung heranziehen.
 
-Risikobewertung, Sicherheitsprüfung, Tests an Ihrer Anlage und Einhaltung der FANUC-Dokumentation liegen **allein bei Ihnen**. **Nutzung auf eigenes Risiko.**
+**Der Autor übernimmt keine Haftung** für Folgen aus der Nutzung dieses Codes.
 
 ## Lizenz
 

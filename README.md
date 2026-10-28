@@ -91,11 +91,11 @@ Use **View Recipe** / **Load Recipe** to move data between XML files and registe
 
 ## Disclaimer
 
-This repository is **sample / educational code**, not a product certified for any application.
+This repository is **sample / educational code** — not a turnkey product or official FANUC offering.
 
-**The author accepts no responsibility or liability** for damage, downtime, injury, data loss, or any other consequence arising from downloading, copying, modifying, or running this code on a robot, controller, or production line — including misuse, incomplete safety integration, or mismatch with your controller version or options.
+Before using it on a live robot or production line, please **test on your own setup**, integrate it according to your site safety rules, and follow FANUC documentation for your controller.
 
-You are solely responsible for risk assessment, safety review (including applicable standards and site rules), testing on your equipment, and compliance with FANUC documentation and local regulations. **Use at your own risk.**
+**The author accepts no liability** for outcomes from using this code.
 
 ## License
 

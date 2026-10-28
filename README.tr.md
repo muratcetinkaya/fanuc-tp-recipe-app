@@ -91,11 +91,11 @@ Kontrolcüde **`FR:\recipes\`** klasörünü oluştur. İstersen bu repodaki ör
 
 ## Sorumluluk reddi
 
-Bu depo **örnek / eğitim amaçlı koddur**; herhangi bir uygulama için sertifikalı bir ürün değildir.
+Bu depo **örnek ve eğitim amaçlı** paylaşılmıştır; hazır bir ürün veya resmi FANUC çözümü değildir.
 
-**Yazar, hiçbir sorumluluk kabul etmez:** Bu kodun indirilmesi, kopyalanması, değiştirilmesi veya robotta / kontrolcüde / üretim hattında çalıştırılmasından doğabilecek hasar, duruş, yaralanma, veri kaybı veya başka sonuçlardan — eksik güvenlik entegrasyonu, yanlış kullanım veya kontrolcü sürümü/opsiyon uyumsuzluğu dahil — **yazar sorumlu tutulamaz**.
+Canlı robotta veya üretim hattında kullanmadan önce **kendi ekipmanında test etmeni**, sahadaki güvenlik kurallarına uygun şekilde entegre etmeni ve FANUC dokümantasyonunu referans almanı öneririm.
 
-Risk analizi, güvenlik incelemesi (ilgili standartlar ve saha kuralları), kendi ekipmanında test ve FANUC dokümantasyonuna uyum **tamamen senin sorumluluğundadır**. **Kendi riskinle kullan.**
+Bu kodu kullanımından doğabilecek sonuçlar için **yazar sorumluluk kabul etmez**.
 
 ## Lisans
 
