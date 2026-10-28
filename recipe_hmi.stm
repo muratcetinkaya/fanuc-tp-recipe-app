@@ -1,0 +1,147 @@
+<!--
+  Author : Muratcan Cetinkaya
+  Mail   : mcetinkaya40@gmail.com
+  Web    : https://www.muratcancetinkaya.net
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>FANUC Recipe Manager</title>
+<style>
+  body   { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 10px; }
+  table  { width: 100%; border-spacing: 0 8px; }
+  td     { background: #fff; padding: 10px; font-size: small; }
+  th     { text-align: left; font-size: small; padding: 4px 10px; }
+  .button{ background: #45A049; color: #fff; border: none; border-radius: 4px;
+           padding: 10px 20px; margin: 6px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h2 style="text-align:center">FANUC Recipe Manager</h2>
+<table>
+<tr><td style="text-align:center">
+Recipe list:
+<object classid="clsid:DCBDE026-26E0-4E98-8179-40AA8598D288" id="RecipeCombo" style="width:300px">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="112">
+  <param name="DataIndex" value="1">
+  <param name="Type" value="4">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="ProgType" value="1">
+  <param name="DataSource" value="FR:\\RECIPES\\.xml">
+  <param name="Periodic" value="1">
+</object>
+</td></tr>
+<tr><td style="text-align:center">
+<form action="/KAREL/recipe_load" method="GET" style="display:inline-block"><input type="hidden" name="value" value="VIEW"><input type="submit" class="button" value="View Recipe"></form>
+<form action="/KAREL/recipe_save" method="GET" style="display:inline-block"><input type="hidden" name="value" value="CREATE"><input type="submit" class="button" value="New Recipe"></form>
+<form action="/KAREL/recipe_save" method="GET" style="display:inline-block"><input type="hidden" name="value" value="SAVE"><input type="submit" class="button" value="Save Recipe"></form>
+<form action="/KAREL/recipe_save" method="GET" style="display:inline-block" onsubmit="return confirm('Are you sure?');"><input type="hidden" name="value" value="DELETE"><input type="submit" class="button" value="Delete Recipe"></form>
+<form action="/KAREL/recipe_load" method="GET" style="display:inline-block"><input type="hidden" name="value" value="LOAD"><input type="submit" class="button" value="Load Recipe (activate)"></form>
+</td></tr>
+</table>
+
+<table>
+<tr><th></th><th>Edit (what you type)</th><th>Active (what the robot uses)</th></tr>
+<tr><td>Recipe name</td>
+<td><object classid="clsid:71060660-0E45-11D3-81B6-0000E206D650" id="NameEdit"><param name="FontSize" value="14"><param name="DataType" value="112"><param name="DataIndex" value="2"><param name="Interval" value="250"><param name="TrueFont" value="-1"><param name="FastLoad" value="0"><param name="Type" value="0"><param name="ValueMin" value="0"><param name="ValueMax" value="32766"><param name="ViewType" value="0"><param name="Border" value="4"><param name="Periodic" value="0"><param name="RWAccess" value="0"></object></td>
+<td><object classid="clsid:7106065C-0E45-11D3-81B6-0000E206D650" id="NameLabel">
+  <param name="Caption" value="###">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="112">
+  <param name="DataIndex" value="3">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="Border" value="1">
+  <param name="Periodic" value="0">
+  <param name="RWAccess" value="0">
+</object></td></tr>
+<tr><td>Length (mm)</td><td><object classid="clsid:71060660-0E45-11D3-81B6-0000E206D650" id="LenEdit">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="101">
+  <param name="DataIndex" value="11">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="Type" value="0">
+  <param name="ValueMin" value="0">
+  <param name="ValueMax" value="5000">
+  <param name="IncrValue" value="1">
+  <param name="ViewType" value="0">
+  <param name="Border" value="4">
+  <param name="Periodic" value="0">
+  <param name="RWAccess" value="0">
+</object></td><td><object classid="clsid:7106065C-0E45-11D3-81B6-0000E206D650" id="LenLabel">
+  <param name="Caption" value="###">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="101">
+  <param name="DataIndex" value="1">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="Border" value="1">
+  <param name="Periodic" value="0">
+  <param name="RWAccess" value="0">
+</object></td></tr>
+<tr><td>Width (mm)</td><td><object classid="clsid:71060660-0E45-11D3-81B6-0000E206D650" id="WidEdit">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="101">
+  <param name="DataIndex" value="12">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="Type" value="0">
+  <param name="ValueMin" value="0">
+  <param name="ValueMax" value="5000">
+  <param name="IncrValue" value="1">
+  <param name="ViewType" value="0">
+  <param name="Border" value="4">
+  <param name="Periodic" value="0">
+  <param name="RWAccess" value="0">
+</object></td><td><object classid="clsid:7106065C-0E45-11D3-81B6-0000E206D650" id="WidLabel">
+  <param name="Caption" value="###">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="101">
+  <param name="DataIndex" value="2">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="Border" value="1">
+  <param name="Periodic" value="0">
+  <param name="RWAccess" value="0">
+</object></td></tr>
+<tr><td>Height (mm)</td><td><object classid="clsid:71060660-0E45-11D3-81B6-0000E206D650" id="HeiEdit">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="101">
+  <param name="DataIndex" value="13">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="Type" value="0">
+  <param name="ValueMin" value="0">
+  <param name="ValueMax" value="5000">
+  <param name="IncrValue" value="1">
+  <param name="ViewType" value="0">
+  <param name="Border" value="4">
+  <param name="Periodic" value="0">
+  <param name="RWAccess" value="0">
+</object></td><td><object classid="clsid:7106065C-0E45-11D3-81B6-0000E206D650" id="HeiLabel">
+  <param name="Caption" value="###">
+  <param name="FontSize" value="14">
+  <param name="DataType" value="101">
+  <param name="DataIndex" value="3">
+  <param name="Interval" value="250">
+  <param name="TrueFont" value="-1">
+  <param name="FastLoad" value="0">
+  <param name="Border" value="1">
+  <param name="Periodic" value="0">
+  <param name="RWAccess" value="0">
+</object></td></tr>
+</table>
+<p style="text-align:center;font-size:small;color:#666">Muratcan Cetinkaya &middot; mcetinkaya40@gmail.com &middot; <a href="https://www.muratcancetinkaya.net">muratcancetinkaya.net</a></p>
+</body>
+</html>

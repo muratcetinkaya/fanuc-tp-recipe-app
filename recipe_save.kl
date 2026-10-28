@@ -1,0 +1,103 @@
+-- Author : Muratcan Cetinkaya
+-- Mail   : mcetinkaya40@gmail.com
+-- Web    : https://www.muratcancetinkaya.net
+-- ============================================================
+-- recipe_save.kl
+-- Recipe SAVE / CREATE / DELETE  (called from the web page)
+-- Recipe = name + 3 numbers (length, width, height)
+--
+-- Register map (edit side = what the user types on the web page)
+--   SR[1]  : recipe selected in the combo box (file name + ".xml")
+--   SR[2]  : recipe name text box (edit side)
+--   R[11..13] : length / width / height (edit side)
+-- ============================================================
+PROGRAM recipe_save
+%NOLOCKGROUP
+%NOPAUSESHFT
+
+CONST
+    XML_HEADER = '<?xml version="1.0" encoding="utf-8"?>'
+    OPEN_TAG   = '<catalog>'
+    CLOSE_TAG  = '</catalog>'
+
+VAR
+    xml_file    : FILE
+    value       : STRING[12]     -- filled by the web page (?value=SAVE ...)
+    recipe_name : STRING[50]
+    file_name   : STRING[50]
+    del_name    : STRING[50]
+    status      : INTEGER
+    length_mm   : INTEGER
+    width_mm    : INTEGER
+    height_mm   : INTEGER
+    return_code : INTEGER        -- 204 = "no content", page is not replaced
+
+-- Reads a register as INTEGER, whether it holds an int or a real
+ROUTINE get_int_reg(idx : INTEGER) : INTEGER
+VAR
+    is_real  : BOOLEAN
+    int_val  : INTEGER
+    real_val : REAL
+    st       : INTEGER
+BEGIN
+    GET_REG(idx, is_real, int_val, real_val, st)
+    IF is_real THEN
+        RETURN (ROUND(real_val))
+    ENDIF
+    RETURN (int_val)
+END get_int_reg
+
+-- Clears the edit side of the page
+ROUTINE clear_edit_fields
+VAR
+    st : INTEGER
+BEGIN
+    SET_STR_REG(1, '', st)
+    SET_STR_REG(2, '', st)
+    SET_REAL_REG(11, 0, st)
+    SET_REAL_REG(12, 0, st)
+    SET_REAL_REG(13, 0, st)
+END clear_edit_fields
+
+BEGIN
+    IF UNINIT(value) THEN
+        value = ''
+    ENDIF
+
+    -- TPOUT[5] = "robot busy" signal in my setup. Change or remove it.
+    IF TPOUT[5] = FALSE THEN
+
+        IF value = 'SAVE' THEN
+            GET_STR_REG(2, recipe_name, status)
+            length_mm = get_int_reg(11)
+            width_mm  = get_int_reg(12)
+            height_mm = get_int_reg(13)
+
+            file_name = 'fr:\recipes\' + recipe_name + '.xml'
+            DELAY 500
+            OPEN FILE xml_file ('RW', file_name)
+            WRITE xml_file (XML_HEADER, CR)
+            WRITE xml_file (OPEN_TAG, CR)
+            WRITE xml_file ('<recipename value="', recipe_name, '"/>', CR)
+            WRITE xml_file ('<length value="', length_mm, '"/>', CR)
+            WRITE xml_file ('<width value="', width_mm, '"/>', CR)
+            WRITE xml_file ('<height value="', height_mm, '"/>', CR)
+            WRITE xml_file (CLOSE_TAG, CR)
+            CLOSE FILE xml_file
+        ENDIF
+
+        IF value = 'CREATE' THEN
+            clear_edit_fields
+        ENDIF
+
+        IF value = 'DELETE' THEN
+            GET_STR_REG(1, del_name, status)      -- already contains ".xml"
+            del_name = 'FR:\RECIPES\' + del_name
+            DELETE_FILE(del_name, FALSE, status)
+            clear_edit_fields
+        ENDIF
+
+    ENDIF
+
+    return_code = 204
+END recipe_save
