@@ -7,6 +7,8 @@ Es werden nur integrierte Funktionen verwendet: KAREL, XML-Dateien auf der Steue
 
 Ein Rezept besteht hier nur aus **Name + 3 Zahlen** (Kartonlänge, -breite, -höhe) – beliebig erweiterbar.
 
+**Getestet auf:** FANUC **CRX-25iA** (iPendant). Andere Steuerungen können abweichen — Menüs, Optionen und Sicherheit vor Produktiveinsatz prüfen.
+
 ![Rezeptmanager am iPendant — Übersicht mit Edit- und geladenen Registern](docs/hmi-ipendant-overview.png)
 
 *Beispiel: `box_small.xml` gewählt, Abmessungen 300 × 200 × 150 mm. Rechts **Edit**-Register (SR[2], R[11–13]) und geladene **Loaded**-Register (SR[3], R[1–3]).*
@@ -86,6 +88,18 @@ Unter **Setup → Host Comm** (HTTP-Authentifizierung) den Zugriff so einstellen
 - Werte werden als Integer (mm) gespeichert. Für Dezimalstellen mit x10 oder x100 speichern.
 - `TPOUT[5] = FALSE` dient als „Roboter beschäftigt“-Verriegelung, damit Rezepte nicht mitten im Zyklus geändert werden – an das eigene Signal anpassen.
 - Die XML wird Tag für Tag mit `XML_ADDTAG` / `XML_SCAN` / `XML_GETDATA` gelesen.
+
+## Haftungsausschluss
+
+Dieses Repository ist **Beispiel- / Lehrcode**, kein zertifiziertes Produkt.
+
+**Der Autor übernimmt keine Verantwortung oder Haftung** für Schäden, Ausfallzeiten, Verletzungen, Datenverlust oder andere Folgen durch Download, Kopie, Änderung oder Ausführung dieses Codes am Roboter, an der Steuerung oder in der Produktion — einschließlich fehlender Safety-Integration, Fehlbedienung oder Abweichungen bei Steuerungsversion/Optionen.
+
+Risikobewertung, Sicherheitsprüfung, Tests an Ihrer Anlage und Einhaltung der FANUC-Dokumentation liegen **allein bei Ihnen**. **Nutzung auf eigenes Risiko.**
+
+## Lizenz
+
+Veröffentlicht unter der [MIT License](LICENSE).
 
 ## Autor
 **Muratcan Cetinkaya**

@@ -7,6 +7,8 @@ Sadece dahili özellikler kullanılıyor: KAREL, kontrolcü üzerindeki XML dosy
 
 Buradaki bir reçete sadece **isim + 3 sayıdan** oluşur (kutu uzunluğu, genişliği, yüksekliği) – istediğin kadar alan ekleyebilirsin.
 
+**Test edildi:** FANUC **CRX-25iA** (iPendant). Başka kontrolcülerde menüler ve seçenekler farklı olabilir; canlı hücrede kullanmadan önce kendi sisteminde doğrula.
+
 ![iPendant üzerinde Reçete Yöneticisi — genel görünüm, edit ve yüklü register'lar](docs/hmi-ipendant-overview.png)
 
 *Örnek: `box_small.xml` seçili, boyutlar 300 × 200 × 150 mm. Sağda **Edit** register'ları (SR[2], R[11–13]) ile **Loaded** aktif register'lar (SR[3], R[1–3]) birlikte görünür.*
@@ -86,6 +88,18 @@ Kontrolcüde **`FR:\recipes\`** klasörünü oluştur. İstersen bu repodaki ör
 - Değerler integer (mm) olarak kaydedilir. Ondalık gerekiyorsa x10 veya x100 olarak sakla.
 - `TPOUT[5] = FALSE` bir "robot meşgul" kilidi olarak kullanılıyor, böylece döngü ortasında reçete değiştirilemez – kendi sinyaline göre uyarla.
 - XML, `XML_ADDTAG` / `XML_SCAN` / `XML_GETDATA` ile her seferinde tek bir tag okunarak işlenir.
+
+## Sorumluluk reddi
+
+Bu depo **örnek / eğitim amaçlı koddur**; herhangi bir uygulama için sertifikalı bir ürün değildir.
+
+**Yazar, hiçbir sorumluluk kabul etmez:** Bu kodun indirilmesi, kopyalanması, değiştirilmesi veya robotta / kontrolcüde / üretim hattında çalıştırılmasından doğabilecek hasar, duruş, yaralanma, veri kaybı veya başka sonuçlardan — eksik güvenlik entegrasyonu, yanlış kullanım veya kontrolcü sürümü/opsiyon uyumsuzluğu dahil — **yazar sorumlu tutulamaz**.
+
+Risk analizi, güvenlik incelemesi (ilgili standartlar ve saha kuralları), kendi ekipmanında test ve FANUC dokümantasyonuna uyum **tamamen senin sorumluluğundadır**. **Kendi riskinle kullan.**
+
+## Lisans
+
+[MIT License](LICENSE) ile paylaşılmıştır (tam metin dosyada).
 
 ## Yazar
 **Muratcan Cetinkaya**

@@ -7,6 +7,8 @@ using only built-in features: KAREL, XML files on the controller (FR:), register
 
 A recipe here is just a **name + 3 numbers** (box length, width, height) – add as many fields as you like.
 
+**Tested on:** FANUC **CRX-25iA** (iPendant). Other controllers may differ; verify menus, options, and safety on your system before use in production.
+
 ![Recipe Manager on the iPendant — overview with edit vs loaded registers](docs/hmi-ipendant-overview.png)
 
 *Example: `box_small.xml` selected, dimensions 300 × 200 × 150 mm. **Edit** registers (SR[2], R[11–13]) vs **Loaded** active registers (SR[3], R[1–3]) are shown on the right.*
@@ -86,6 +88,18 @@ Use **View Recipe** / **Load Recipe** to move data between XML files and registe
 - Values are saved as integers (mm). If you need decimals, store them x10 or x100.
 - `TPOUT[5] = FALSE` is used as a "robot busy" interlock so recipes can't be changed mid-cycle – adapt it to your signal.
 - The XML is read one tag at a time with `XML_ADDTAG` / `XML_SCAN` / `XML_GETDATA`.
+
+## Disclaimer
+
+This repository is **sample / educational code**, not a product certified for any application.
+
+**The author accepts no responsibility or liability** for damage, downtime, injury, data loss, or any other consequence arising from downloading, copying, modifying, or running this code on a robot, controller, or production line — including misuse, incomplete safety integration, or mismatch with your controller version or options.
+
+You are solely responsible for risk assessment, safety review (including applicable standards and site rules), testing on your equipment, and compliance with FANUC documentation and local regulations. **Use at your own risk.**
+
+## License
+
+Released under the [MIT License](LICENSE) (see file for full text).
 
 ## Author
 **Muratcan Cetinkaya**
