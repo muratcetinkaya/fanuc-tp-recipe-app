@@ -7,6 +7,10 @@ Es werden nur integrierte Funktionen verwendet: KAREL, XML-Dateien auf der Steue
 
 Ein Rezept besteht hier nur aus **Name + 3 Zahlen** (Kartonlänge, -breite, -höhe) – beliebig erweiterbar.
 
+![Rezeptmanager am iPendant — Dateiliste, Eingabefelder, Load / Save](docs/hmi-ipendant.png)
+
+*Beispiel: `box_small.xml` gewählt, Abmessungen 300 × 200 × 150 mm. Rechts **Edit**-Register (SR[2], R[11–13]) und geladene **Loaded**-Register (SR[3], R[1–3]).*
+
 ## Funktionsweise
 
 ```
@@ -38,15 +42,47 @@ Durch die Trennung von Edit und Aktiv kann man Rezepte ansehen und ändern, wäh
 | R[1..3] | Länge, Breite, Höhe – aktiv (diese im TP-/KAREL-Programm verwenden) |
 
 ## Einrichtung
-1. **Zuerst KAREL aktivieren: in den Systemvariablen `$KAREL_ENB` von `0` auf `1` setzen.** Ohne dies können KAREL-Programme nicht ausgeführt werden.
-2. `recipe_save.kl` und `recipe_load.kl` übersetzen (ROBOGUIDE oder `ktrans`) und die `.pc`-Dateien auf die Steuerung laden.
-3. Die Webseite `recipe_hmi.stm` auf die Steuerung kopieren. **FANUC-Webseiten müssen die Endung `.stm` haben.**
-4. **Das Verzeichnis der Seite in der Systemvariable `$TX_SCREEN` eintragen.** Das Gerät/Verzeichnis, in dem `recipe_hmi.stm` liegt, muss in `$TX_SCREEN` definiert sein, sonst findet der Webserver der Steuerung die Seite nicht.
-5. Den Ordner `FR:\recipes\` anlegen (optional `example/box_small.xml` hineinkopieren).
-6. Den Aufruf der KAREL-Programme über das Web erlauben (Setup > Host Comm / HTTP-Authentifizierung, KAREL-CGI aktiviert).
-7. Die Seite lässt sich auf zwei Arten öffnen:
-   - **Am Bedienhandgerät:** im iPendant das Menü **Browser** öffnen und die Seite über den in `$TX_SCREEN` vergebenen **Namen** auswählen.
-   - **Im PC-Browser:** über das in `$TX_SCREEN` konfigurierte Verzeichnis: `http://<Roboter-IP>/<konfiguriertes-Verzeichnis>/recipe_hmi.stm`
+
+Die Screenshots stammen von einem **CRX-25iA** iPendant; die Menüpfade gelten analog für R-30iB / R-50iA.
+
+### 1. KAREL aktivieren
+
+**Setup → KAREL Enbl** öffnen und **`$KAREL_ENB`** auf **TRUE** (`1`) setzen. Ohne diese Option laufen KAREL-Programme nicht (ggf. Neustart der Steuerung).
+
+![Setup → KAREL Enbl — $KAREL_ENB auf TRUE](docs/setup-karel-enb.png)
+
+### 2. KAREL-Programme laden
+
+`recipe_save.kl` und `recipe_load.kl` übersetzen (ROBOGUIDE oder `ktrans`) und die `.pc`-Dateien auf die Steuerung laden.
+
+### 3. Webseite kopieren
+
+`recipe_hmi.stm` in den Speicherort für Webseiten kopieren. **FANUC-Webseiten müssen die Endung `.stm` haben.**
+
+### 4. Seitenpfad in `$TX_SCREEN` eintragen
+
+**Setup → TxScr Screen** öffnen. **Gerät** und **Verzeichnis** von `recipe_hmi.stm` eintragen und mit **Save** speichern.
+
+![Setup → TxScr Screen — Gerät, Verzeichnis, Save für $TX_SCREEN](docs/setup-tx-screen.png)
+
+### 5. Rezeptordner anlegen
+
+Auf der Steuerung **`FR:\recipes\`** anlegen. Optional **`box_small.xml`** aus diesem Repository dorthin kopieren.
+
+### 6. Webaufruf für KAREL freigeben
+
+Unter **Setup → Host Comm** (HTTP-Authentifizierung) den Zugriff so einstellen, dass die `.stm`-Seite die KAREL-Programme aufrufen kann (**KAREL CGI** — laut Steuerungshandbuch).
+
+### 7. Rezeptseite öffnen
+
+**Am Bedienhandgerät:** iPendant-Menü **Browser** → Seitenname aus `$TX_SCREEN` wählen.
+
+**Im PC-Browser:**  
+`http://<Roboter-IP>/<konfiguriertes-Verzeichnis>/recipe_hmi.stm`
+
+**View Recipe** / **Load Recipe** lesen XML in Register; **Save Recipe** schreibt die Edit-Felder nach `FR:\recipes\<Name>.xml`.
+
+![Rezeptmanager im iPendant-Browser — Datei, Edit- und geladene Register](docs/hmi-ipendant.png)
 
 ## Hinweise
 - Werte werden als Integer (mm) gespeichert. Für Dezimalstellen mit x10 oder x100 speichern.

@@ -7,6 +7,10 @@ using only built-in features: KAREL, XML files on the controller (FR:), register
 
 A recipe here is just a **name + 3 numbers** (box length, width, height) – add as many fields as you like.
 
+![Recipe Manager on the iPendant — file list, edit fields, and Load / Save buttons](docs/hmi-ipendant.png)
+
+*Example: `box_small.xml` selected, dimensions 300 × 200 × 150 mm. **Edit** registers (SR[2], R[11–13]) vs **Loaded** active registers (SR[3], R[1–3]) are shown on the right.*
+
 ## How it works
 
 ```
@@ -38,15 +42,47 @@ Edit vs. Active separation means you can browse/modify recipes while the robot k
 | R[1..3] | length, width, height – active (use these in your TP/KAREL program) |
 
 ## Setup
-1. **First, enable KAREL: in the system variables set `$KAREL_ENB` from `0` to `1`.** Without this, KAREL programs cannot run.
-2. Translate `recipe_save.kl` and `recipe_load.kl` (ROBOGUIDE or `ktrans`) and load the `.pc` files on the controller.
-3. Copy the web page `recipe_hmi.stm` to the controller. **FANUC web pages must use the `.stm` extension.**
-4. **Register the page directory in the `$TX_SCREEN` system variable.** The device/directory where `recipe_hmi.stm` is stored must be defined in `$TX_SCREEN`, otherwise the controller's web server will not find the page.
-5. Create the `FR:\recipes\` folder (optionally copy `example/box_small.xml`).
-6. Allow the KAREL programs to be called from the web (Setup > Host Comm / HTTP authentication, KAREL CGI enabled).
-7. Open the page in one of two ways:
-   - **On the teach pendant:** open the **Browser** menu on the iPendant and select the page by the **name you assigned in `$TX_SCREEN`**.
-   - **From a PC browser:** use the directory configured in `$TX_SCREEN`: `http://<robot-ip>/<configured-dir>/recipe_hmi.stm`
+
+Screenshots below are from a **CRX-25iA** iPendant; the same menus apply on typical R-30iB / R-50iA setups.
+
+### 1. Enable KAREL
+
+Open **Setup → KAREL Enbl** and set **`$KAREL_ENB`** to **TRUE** (`1`). Without this, KAREL programs will not run (a controller restart may be required after changing the flag).
+
+![Setup → KAREL Enbl — $KAREL_ENB set to TRUE](docs/setup-karel-enb.png)
+
+### 2. Load the KAREL programs
+
+Translate `recipe_save.kl` and `recipe_load.kl` (ROBOGUIDE or `ktrans`) and load the resulting `.pc` files onto the controller.
+
+### 3. Copy the web page
+
+Copy `recipe_hmi.stm` to the controller memory location you will use for web pages. **FANUC web pages must use the `.stm` extension.**
+
+### 4. Register the page path in `$TX_SCREEN`
+
+Open **Setup → TxScr Screen**. Enter the **device** and **directory** where `recipe_hmi.stm` is stored, then press **Save**. If this is wrong, the built-in web server will not find your page.
+
+![Setup → TxScr Screen — device, directory, and Save for $TX_SCREEN](docs/setup-tx-screen.png)
+
+### 5. Create the recipes folder
+
+On the controller, create **`FR:\recipes\`**. Optionally copy the sample file **`box_small.xml`** from this repository into that folder.
+
+### 6. Allow web calls to KAREL
+
+In **Setup → Host Comm** (HTTP authentication), enable access so the `.stm` page can invoke the KAREL programs (**KAREL CGI** / program call from web — match your controller option manual).
+
+### 7. Open the Recipe Manager page
+
+**On the teach pendant:** open the iPendant **Browser** menu and select the page **name** you configured in `$TX_SCREEN`.
+
+**From a PC browser:**  
+`http://<robot-ip>/<configured-dir>/recipe_hmi.stm`
+
+Use **View Recipe** / **Load Recipe** to move data between XML files and registers; **Save Recipe** writes edit fields to `FR:\recipes\<name>.xml`.
+
+![Recipe Manager in the iPendant browser — recipe file, edit vs loaded registers](docs/hmi-ipendant.png)
 
 ## Notes
 - Values are saved as integers (mm). If you need decimals, store them x10 or x100.

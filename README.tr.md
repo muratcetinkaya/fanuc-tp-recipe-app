@@ -7,6 +7,10 @@ Sadece dahili özellikler kullanılıyor: KAREL, kontrolcü üzerindeki XML dosy
 
 Buradaki bir reçete sadece **isim + 3 sayıdan** oluşur (kutu uzunluğu, genişliği, yüksekliği) – istediğin kadar alan ekleyebilirsin.
 
+![iPendant üzerinde Reçete Yöneticisi — dosya listesi, edit alanları, Load / Save](docs/hmi-ipendant.png)
+
+*Örnek: `box_small.xml` seçili, boyutlar 300 × 200 × 150 mm. Sağda **Edit** register'ları (SR[2], R[11–13]) ile **Loaded** aktif register'lar (SR[3], R[1–3]) birlikte görünür.*
+
 ## Nasıl çalışır
 
 ```
@@ -38,15 +42,47 @@ Edit / Aktif ayrımı sayesinde robot yüklü reçeteyle çalışmaya devam eder
 | R[1..3] | uzunluk, genişlik, yükseklik – aktif (TP/KAREL programında bunları kullan) |
 
 ## Kurulum
-1. **Önce KAREL'i etkinleştir: sistem değişkenlerinde `$KAREL_ENB` değerini `0`'dan `1`'e çek.** Bu yapılmazsa KAREL programları çalışmaz.
-2. `recipe_save.kl` ve `recipe_load.kl` dosyalarını translate et (ROBOGUIDE veya `ktrans`) ve `.pc` dosyalarını kontrolcüye yükle.
-3. Web sayfası `recipe_hmi.stm` dosyasını kontrolcüye kopyala. **FANUC web sayfaları `.stm` uzantılı olmak zorundadır.**
-4. **Sayfanın dizinini `$TX_SCREEN` sistem değişkeninde tanımla.** `recipe_hmi.stm` dosyasının bulunduğu cihaz/dizin `$TX_SCREEN` içinde belirtilmelidir, aksi halde kontrolcünün web sunucusu sayfayı bulamaz.
-5. `FR:\recipes\` klasörünü oluştur (istersen `example/box_small.xml` dosyasını kopyala).
-6. KAREL programlarının web'den çağrılmasına izin ver (Setup > Host Comm / HTTP authentication, KAREL CGI etkin).
-7. Sayfayı iki şekilde açabilirsin:
-   - **Pendant üzerinden:** iPendant'taki **Browser** menüsünü aç ve sayfayı `$TX_SCREEN` içinde verdiğin **isimle** seç.
-   - **PC tarayıcısından:** `$TX_SCREEN` içinde ayarladığın dizin üzerinden aç: `http://<robot-ip>/<ayarlanan-dizin>/recipe_hmi.stm`
+
+Aşağıdaki ekran görüntüleri **CRX-25iA** iPendant'tan alınmıştır; menü yolları R-30iB / R-50iA ailesinde aynı mantıktadır.
+
+### 1. KAREL'i etkinleştir
+
+**Setup → KAREL Enbl** menüsünü aç ve **`$KAREL_ENB`** değerini **TRUE** (`1`) yap. Bu kapalıysa KAREL programları çalışmaz (değişiklikten sonra kontrolcüyü yeniden başlatman gerekebilir).
+
+![Setup → KAREL Enbl — $KAREL_ENB TRUE](docs/setup-karel-enb.png)
+
+### 2. KAREL programlarını yükle
+
+`recipe_save.kl` ve `recipe_load.kl` dosyalarını translate et (ROBOGUIDE veya `ktrans`) ve oluşan `.pc` dosyalarını kontrolcüye yükle.
+
+### 3. Web sayfasını kopyala
+
+`recipe_hmi.stm` dosyasını web sayfalarını tutacağın bellek konumuna kopyala. **FANUC web sayfaları `.stm` uzantılı olmak zorundadır.**
+
+### 4. Sayfa yolunu `$TX_SCREEN` içinde tanımla
+
+**Setup → TxScr Screen** menüsünü aç. `recipe_hmi.stm` dosyasının bulunduğu **cihaz** ve **dizin** bilgisini gir, **Save** ile kaydet. Yanlış olursa web sunucusu sayfayı bulamaz.
+
+![Setup → TxScr Screen — cihaz, dizin ve Save ($TX_SCREEN)](docs/setup-tx-screen.png)
+
+### 5. Reçete klasörünü oluştur
+
+Kontrolcüde **`FR:\recipes\`** klasörünü oluştur. İstersen bu repodaki örnek **`box_small.xml`** dosyasını bu klasöre kopyala.
+
+### 6. Web'den KAREL çağrısına izin ver
+
+**Setup → Host Comm** (HTTP authentication) altında `.stm` sayfasının KAREL programlarını çağırabilmesi için gerekli erişimi aç (**KAREL CGI** / web'den program çağrısı — kontrolcü kılavuzuna göre ayarla).
+
+### 7. Reçete sayfasını aç
+
+**Pendant:** iPendant **Browser** menüsünden `$TX_SCREEN` içinde tanımladığın sayfa **adını** seç.
+
+**PC tarayıcısı:**  
+`http://<robot-ip>/<ayarlanan-dizin>/recipe_hmi.stm`
+
+**View Recipe** / **Load Recipe** ile XML ile register'lar arasında veri taşınır; **Save Recipe** edit alanlarını `FR:\recipes\<isim>.xml` dosyasına yazar.
+
+![iPendant tarayıcısında Reçete Yöneticisi — dosya, edit ve yüklü register'lar](docs/hmi-ipendant.png)
 
 ## Notlar
 - Değerler integer (mm) olarak kaydedilir. Ondalık gerekiyorsa x10 veya x100 olarak sakla.
