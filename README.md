@@ -7,7 +7,7 @@ using only built-in features: KAREL, XML files on the controller (FR:), register
 
 A recipe here is just a **name + 3 numbers** (box length, width, height) – add as many fields as you like.
 
-![Recipe Manager on the iPendant — file list, edit fields, and Load / Save buttons](docs/hmi-ipendant.png)
+![Recipe Manager on the iPendant — overview with edit vs loaded registers](docs/hmi-ipendant-overview.png)
 
 *Example: `box_small.xml` selected, dimensions 300 × 200 × 150 mm. **Edit** registers (SR[2], R[11–13]) vs **Loaded** active registers (SR[3], R[1–3]) are shown on the right.*
 
@@ -49,8 +49,6 @@ Screenshots below are from a **CRX-25iA** iPendant; the same menus apply on typi
 
 Open **Setup → KAREL Enbl** and set **`$KAREL_ENB`** to **TRUE** (`1`). Without this, KAREL programs will not run (a controller restart may be required after changing the flag).
 
-![Setup → KAREL Enbl — $KAREL_ENB set to TRUE](docs/setup-karel-enb.png)
-
 ### 2. Load the KAREL programs
 
 Translate `recipe_save.kl` and `recipe_load.kl` (ROBOGUIDE or `ktrans`) and load the resulting `.pc` files onto the controller.
@@ -82,7 +80,7 @@ In **Setup → Host Comm** (HTTP authentication), enable access so the `.stm` pa
 
 Use **View Recipe** / **Load Recipe** to move data between XML files and registers; **Save Recipe** writes edit fields to `FR:\recipes\<name>.xml`.
 
-![Recipe Manager in the iPendant browser — recipe file, edit vs loaded registers](docs/hmi-ipendant.png)
+![iPendant Browser — Recipe Manager page (combo box, edit fields, Load / Save)](docs/hmi-recipe-manager-browser.png)
 
 ## Notes
 - Values are saved as integers (mm). If you need decimals, store them x10 or x100.

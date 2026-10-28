@@ -7,7 +7,7 @@ Sadece dahili özellikler kullanılıyor: KAREL, kontrolcü üzerindeki XML dosy
 
 Buradaki bir reçete sadece **isim + 3 sayıdan** oluşur (kutu uzunluğu, genişliği, yüksekliği) – istediğin kadar alan ekleyebilirsin.
 
-![iPendant üzerinde Reçete Yöneticisi — dosya listesi, edit alanları, Load / Save](docs/hmi-ipendant.png)
+![iPendant üzerinde Reçete Yöneticisi — genel görünüm, edit ve yüklü register'lar](docs/hmi-ipendant-overview.png)
 
 *Örnek: `box_small.xml` seçili, boyutlar 300 × 200 × 150 mm. Sağda **Edit** register'ları (SR[2], R[11–13]) ile **Loaded** aktif register'lar (SR[3], R[1–3]) birlikte görünür.*
 
@@ -49,8 +49,6 @@ Aşağıdaki ekran görüntüleri **CRX-25iA** iPendant'tan alınmıştır; men�
 
 **Setup → KAREL Enbl** menüsünü aç ve **`$KAREL_ENB`** değerini **TRUE** (`1`) yap. Bu kapalıysa KAREL programları çalışmaz (değişiklikten sonra kontrolcüyü yeniden başlatman gerekebilir).
 
-![Setup → KAREL Enbl — $KAREL_ENB TRUE](docs/setup-karel-enb.png)
-
 ### 2. KAREL programlarını yükle
 
 `recipe_save.kl` ve `recipe_load.kl` dosyalarını translate et (ROBOGUIDE veya `ktrans`) ve oluşan `.pc` dosyalarını kontrolcüye yükle.
@@ -82,7 +80,7 @@ Kontrolcüde **`FR:\recipes\`** klasörünü oluştur. İstersen bu repodaki ör
 
 **View Recipe** / **Load Recipe** ile XML ile register'lar arasında veri taşınır; **Save Recipe** edit alanlarını `FR:\recipes\<isim>.xml` dosyasına yazar.
 
-![iPendant tarayıcısında Reçete Yöneticisi — dosya, edit ve yüklü register'lar](docs/hmi-ipendant.png)
+![iPendant Browser — Reçete Yöneticisi sayfası (combo, edit alanları, Load / Save)](docs/hmi-recipe-manager-browser.png)
 
 ## Notlar
 - Değerler integer (mm) olarak kaydedilir. Ondalık gerekiyorsa x10 veya x100 olarak sakla.

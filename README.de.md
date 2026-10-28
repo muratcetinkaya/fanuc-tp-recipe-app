@@ -7,7 +7,7 @@ Es werden nur integrierte Funktionen verwendet: KAREL, XML-Dateien auf der Steue
 
 Ein Rezept besteht hier nur aus **Name + 3 Zahlen** (Kartonlänge, -breite, -höhe) – beliebig erweiterbar.
 
-![Rezeptmanager am iPendant — Dateiliste, Eingabefelder, Load / Save](docs/hmi-ipendant.png)
+![Rezeptmanager am iPendant — Übersicht mit Edit- und geladenen Registern](docs/hmi-ipendant-overview.png)
 
 *Beispiel: `box_small.xml` gewählt, Abmessungen 300 × 200 × 150 mm. Rechts **Edit**-Register (SR[2], R[11–13]) und geladene **Loaded**-Register (SR[3], R[1–3]).*
 
@@ -49,8 +49,6 @@ Die Screenshots stammen von einem **CRX-25iA** iPendant; die Menüpfade gelten a
 
 **Setup → KAREL Enbl** öffnen und **`$KAREL_ENB`** auf **TRUE** (`1`) setzen. Ohne diese Option laufen KAREL-Programme nicht (ggf. Neustart der Steuerung).
 
-![Setup → KAREL Enbl — $KAREL_ENB auf TRUE](docs/setup-karel-enb.png)
-
 ### 2. KAREL-Programme laden
 
 `recipe_save.kl` und `recipe_load.kl` übersetzen (ROBOGUIDE oder `ktrans`) und die `.pc`-Dateien auf die Steuerung laden.
@@ -82,7 +80,7 @@ Unter **Setup → Host Comm** (HTTP-Authentifizierung) den Zugriff so einstellen
 
 **View Recipe** / **Load Recipe** lesen XML in Register; **Save Recipe** schreibt die Edit-Felder nach `FR:\recipes\<Name>.xml`.
 
-![Rezeptmanager im iPendant-Browser — Datei, Edit- und geladene Register](docs/hmi-ipendant.png)
+![iPendant-Browser — Rezeptmanager-Seite (Combobox, Eingaben, Load / Save)](docs/hmi-recipe-manager-browser.png)
 
 ## Hinweise
 - Werte werden als Integer (mm) gespeichert. Für Dezimalstellen mit x10 oder x100 speichern.
